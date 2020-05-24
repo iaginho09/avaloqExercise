@@ -55,16 +55,17 @@ export class BookMarksComponent implements OnInit {
     this.bookMarkSubs = this.BookMarksState$.pipe(map(x => this.listBookmarks = x.BookMarksList)).subscribe();
     this.store.dispatch(getBookMarks());
     this.dataSource.sort = this.sort;
-    console.log(this.dataSource);
   }
 
   addBookMark() {
     this.store.dispatch(new createBookMark(this.bookMark));
+    this.dataSource.sort = this.sort;
     this.clearForm();
   }
 
   deleteBookMark(bookMark) {
     this.store.dispatch(new deleteBookMark(bookMark));
+    this.dataSource.sort = this.sort;
   }
 
   clearForm() {
