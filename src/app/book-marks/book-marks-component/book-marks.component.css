@@ -1,0 +1,12 @@
+.table{
+    width: 50%;
+    border-color: black;
+    border-style: solid;
+    margin-left: 22em;
+    margin-top: 5em;
+}
+
+form{
+    margin-top: 5em;
+    margin-left: 40em;
+}
