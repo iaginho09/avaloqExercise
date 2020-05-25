@@ -6,6 +6,30 @@ The application has 2 main parts, the one with the form where you can add new bo
 ## Screenshots of the working solution
 
 In the following screenshots you can see how is the application running:
+![Screenshot](https://github.com/iaginho09/avaloqExercise/blob/master/ScreenShots/1.PNG)
+
+After that, I added some new bookmarks
+![Screenshot](https://github.com/iaginho09/avaloqExercise/blob/master/ScreenShots/2.PNG)
+
+Then I ordered by group asc:
+![Screenshot](https://github.com/iaginho09/avaloqExercise/blob/master/ScreenShots/3.PNG)
+
+and desc:
+![Screenshot](https://github.com/iaginho09/avaloqExercise/blob/master/ScreenShots/4.PNG)
+
+And finally I delete some of the bookmarks
+![Screenshot](https://github.com/iaginho09/avaloqExercise/blob/master/ScreenShots/5.PNG)
+
+And this is how REDUX Store started:
+![Screenshot](https://github.com/iaginho09/avaloqExercise/blob/master/ScreenShots/r1.PNG)
+
+After add all the bookmarks we saw:
+![Screenshot](https://github.com/iaginho09/avaloqExercise/blob/master/ScreenShots/r2.PNG)
+
+And how the Store ended up:
+![Screenshot](https://github.com/iaginho09/avaloqExercise/blob/master/ScreenShots/r3.PNG)
+
+
 
 
 ## Instructions how to run the application
