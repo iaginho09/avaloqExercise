@@ -1,10 +1,11 @@
-import { BookMark } from '../Models/book-marks.model';
+import { BookMark } from '../Types/book-marks.model';
 
 
 export interface BookMarksState {
-    BookMarksList:BookMark[];
+    BookMarksList:any;
 }
 
 export const intializeBookMarks = (): BookMarksState =>{
     return ({BookMarksList : []});
 }
+

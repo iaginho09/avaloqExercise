@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BookMark } from '../Models/book-marks.model';
+import { BookMark } from '../Types/book-marks.model';
 import { Store, Action, select } from '@ngrx/store';
 import { FormGroup, FormControl } from '@angular/forms';
-import { createBookMark, deleteBookMark, getBookMarks } from '../book-marks-store/book-marks.action';
+import { createBookMark, deleteBookMark, getBookMarks, createArrayBookMarks } from '../book-marks-store/book-marks.action';
 import { BookMarksState } from '../book-marks-store/book-marks.state';
 import { Observable, Subscription } from 'rxjs';
 import { BookMarkReducer } from '../book-marks-store/book-marks.reducer';
@@ -11,11 +11,37 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 
+
+const initializeArray:BookMark[] = 
+      [{
+        Title:"gmail",
+        URL:"https://www.gmail.com/",
+        Group:"Work"
+      },
+      {
+        Title:"youtube",
+        URL:"https://www.youtube.com/",
+        Group:"Social"
+      },
+      {
+        Title:"spotify",
+        URL:"https://www.spotify.com/",
+        Group:"Music"
+      },
+      {
+        Title:"facebook",
+        URL:"https://www.facebook.com/",
+        Group:"Social"
+      }]
+
+
 @Component({
   selector: 'app-book-marks',
   templateUrl: './book-marks.component.html',
   styleUrls: ['./book-marks.component.css']
 })
+
+
 export class BookMarksComponent implements OnInit {
 
   BookMarksState$: Observable<BookMarksState>;
@@ -23,6 +49,7 @@ export class BookMarksComponent implements OnInit {
   displayedColumns: string[] = ['Title', 'URL', 'Group', 'Delete'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  
 
 
   bookMark: BookMark = {
@@ -77,33 +104,9 @@ export class BookMarksComponent implements OnInit {
   }
 
   initializeBookMarks() {
-    this.store.dispatch(new createBookMark({
-      "Title": "gmail",
-      "URL": "https://www.gmail.com/",
-      "Group": "Work"
-    }
-    ));
-    this.store.dispatch(new createBookMark({
+      
+    this.store.dispatch(new createArrayBookMarks(initializeArray));
 
-      "Title": "youtube",
-      "URL": "https://www.youtube.com/",
-      "Group": "Social"
-
-    }));
-    this.store.dispatch(new createBookMark({
-
-      "Title": "spotify",
-      "URL": "https://www.spotify.com/",
-      "Group": "Music"
-
-    }));
-    this.store.dispatch(new createBookMark({
-
-      "Title": "facebook",
-      "URL": "https://www.facebook.com/",
-      "Group": "Social"
-
-    }));
   }
 
   ngOnDestroy() {

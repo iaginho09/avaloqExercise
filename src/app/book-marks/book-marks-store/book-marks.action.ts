@@ -1,5 +1,5 @@
 import { Action, createAction, props } from "@ngrx/store";
-import { BookMark } from '../Models/book-marks.model';
+import { BookMark } from '../Types/book-marks.model';
 
 
 export default interface ActionWithPayload<T> extends Action {
@@ -7,6 +7,16 @@ export default interface ActionWithPayload<T> extends Action {
 }
 
 export const getBookMarks = createAction('get_BookMarks');
+
+export class createArrayBookMarks implements ActionWithPayload<BookMark[]> {
+    readonly type = "initializate_List";
+    payload: BookMark[];
+
+    constructor(payload: BookMark[]) {
+        this.payload = payload;
+    }
+}
+
 export class createBookMark implements ActionWithPayload<BookMark> {
     readonly type = "create_BookMark";
     payload: BookMark;
@@ -23,4 +33,5 @@ export class deleteBookMark implements ActionWithPayload<BookMark> {
         this.payload = payload;
     }
 }
+
 
