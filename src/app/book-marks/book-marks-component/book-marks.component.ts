@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BookMark } from '../Types/book-marks.model';
 import { Store, Action, select } from '@ngrx/store';
 import { FormGroup, FormControl } from '@angular/forms';
-import { createBookMark, deleteBookMark, getBookMarks, createArrayBookMarks } from '../book-marks-store/book-marks.action';
+import { createBookMark, deleteBookMark, getBookMarks, createArrayBookMarks, updateBookMark } from '../book-marks-store/book-marks.action';
 import { BookMarksState } from '../book-marks-store/book-marks.state';
 import { Observable, Subscription } from 'rxjs';
 import { BookMarkReducer } from '../book-marks-store/book-marks.reducer';
@@ -46,13 +46,18 @@ export class BookMarksComponent implements OnInit {
 
   BookMarksState$: Observable<BookMarksState>;
   bookMarkSubs: Subscription;
-  displayedColumns: string[] = ['Title', 'URL', 'Group', 'Delete'];
+  displayedColumns: string[] = ['Title', 'URL', 'Group', 'Delete','Update'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   
-
+  update:boolean=false;
 
   bookMark: BookMark = {
+    Title: "",
+    URL: "",
+    Group: ""
+  }
+  previousBookMark: BookMark = {
     Title: "",
     URL: "",
     Group: ""
@@ -68,6 +73,7 @@ export class BookMarksComponent implements OnInit {
 
   public isAddOpen: boolean = false;
   public listBookmarks: BookMark[];
+
   
   constructor(private store: Store<BookMarksState>) {
     this.store.select(state => state).subscribe((response: any) => {
@@ -95,8 +101,31 @@ export class BookMarksComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  updateBookMarks(bookMark) {
+    this.update=true;
+    this.bookMark.Title = bookMark.Title;
+    this.bookMark.URL = bookMark.URL;
+    this.bookMark.Group = bookMark.Group;
+    this.previousBookMark.Title = bookMark.Title;
+    this.previousBookMark.URL = bookMark.URL;
+    this.previousBookMark.Group = bookMark.Group;
+    
+  }
+
+  updateBookMark(){
+    this.store.dispatch(new updateBookMark(this.bookMark,this.previousBookMark));
+    this.dataSource.sort = this.sort;
+    this.update=false;
+    this.clearForm();
+  }
+
   clearForm() {
     this.bookMark = {
+      Title: "",
+      URL: "",
+      Group: ""
+    }
+    this.previousBookMark = {
       Title: "",
       URL: "",
       Group: ""
@@ -104,9 +133,7 @@ export class BookMarksComponent implements OnInit {
   }
 
   initializeBookMarks() {
-      
     this.store.dispatch(new createArrayBookMarks(initializeArray));
-
   }
 
   ngOnDestroy() {

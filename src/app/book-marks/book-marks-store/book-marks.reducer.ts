@@ -9,13 +9,13 @@ export function BookMarkReducer(state: BookMarksState = initialState,
     action: Action) {
     switch (action.type) {
         case 'get_BookMarks':
-            console.log("hola2",action)
+            console.log("hola2", action)
             return {
                 ...state
             };
 
         case "initializate_List":
-            const listBookmarks:BookMark[] = (action as ActionWithPayload<BookMark[]>).payload;
+            const listBookmarks: BookMark[] = (action as ActionWithPayload<BookMark[]>).payload;
             return ({
                 ...state,
                 BookMarksList: state.BookMarksList.concat(listBookmarks)
@@ -25,6 +25,18 @@ export function BookMarkReducer(state: BookMarksState = initialState,
             return ({
                 ...state,
                 BookMarksList: state.BookMarksList.concat((action as ActionWithPayload<BookMark>).payload)
+            });
+
+        case 'update_BookMark':
+            return ({
+                ...state,
+                BookMarksList: state.BookMarksList.map((item,index) =>{                   
+                    if((action as ActionWithPayload<BookMark>).lastValue.Title === item.Title){
+                        return (action as ActionWithPayload<BookMark>).payload;
+                    }else{
+                        return item;
+                    }
+                })
             });
 
         case 'delete_BookMark':

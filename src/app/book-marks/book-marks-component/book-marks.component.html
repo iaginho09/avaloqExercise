@@ -1,18 +1,20 @@
-<form [formGroup]="profileForm" (ngSubmit)="addBookMark()">
-  <p>Add a new BookMark:</p>
+<form [formGroup]="profileForm">
+  <p *ngIf="!update">Add a new BookMark:</p>
+  <p *ngIf="update">Update The BookMark:</p>
   <p>
     Title:
-    <input type="text" [(ngModel)]="bookMark.Title" formControlName="Title">
+    <input type="text" [(ngModel)]="bookMark.Title" formControlName="Title" placeholder="Enter the Title">
   </p>
   <p>
     URL:
-    <input type="text" [(ngModel)]="bookMark.URL" formControlName="URL">
+    <input type="text" [(ngModel)]="bookMark.URL" formControlName="URL"  placeholder="Enter the Url">
   </p>
   <p>
-    Group
-    <input type="text" [(ngModel)]="bookMark.Group" formControlName="Group">
+    Group:
+    <input type="text" [(ngModel)]="bookMark.Group" formControlName="Group"  placeholder="Enter the Group">
   </p>
-  <button type="submit">Submit</button>
+  <button *ngIf="!update" type="submit" (click)="addBookMark()">Submit</button>
+  <button *ngIf="update" type="submit" (click)="updateBookMark()">Update</button>
 </form>
 
 <table mat-table [dataSource]="dataSource" matSort class="table">
@@ -35,6 +37,11 @@
   <ng-container matColumnDef="Delete">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let bookmark"><button (click)="deleteBookMark(bookmark)">Delete</button> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Update">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let bookmark"><button (click)="updateBookMarks(bookmark)">Update</button> </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
